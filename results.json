@@ -1,0 +1,902 @@
+{
+    "abacusai/dracarys-llama-3.1-70b-instruct": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 6.559068918228149
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 11.057347297668457
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 3.0171622037887573
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 12.620297312736511
+        }
+    },
+    "bytedance/seed-oss-36b-instruct": {
+        "coding": {
+            "score": 0.0,
+            "latency": 15.128626982371012
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 15.14086906115214
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 15.160520076751709
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 15.128774166107178
+        }
+    },
+    "deepseek-ai/deepseek-v4-flash": {
+        "coding": {
+            "score": 0.0,
+            "latency": 15.194629271825155
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 15.203633864720663
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 15.18402874469757
+        },
+        "tool_calling": {
+            "score": 0.5,
+            "latency": 12.754687666893005
+        }
+    },
+    "google/diffusiongemma-26b-a4b-it": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 0.8503642082214355
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 0.6850283940633138
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 0.6269735097885132
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 0.5800756216049194
+        }
+    },
+    "google/gemma-2-2b-it": {
+        "coding": {
+            "score": 1.0,
+            "latency": 2.2992480595906577
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 1.4654137293497722
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 0.9525651931762695
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.46364057064056396
+        }
+    },
+    "google/gemma-3n-e2b-it": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 9.887823502222696
+        },
+        "math": {
+            "score": 0.6666666666666666,
+            "latency": 10.24661405881246
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 3.176416277885437
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.5242694616317749
+        }
+    },
+    "google/gemma-4-31b-it": {
+        "coding": {
+            "score": 1.0,
+            "latency": 6.870610237121582
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 6.121134519577026
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 1.9033362865447998
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 6.917991042137146
+        }
+    },
+    "meta/llama-3.1-70b-instruct": {
+        "coding": {
+            "score": 0.0,
+            "latency": 15.181260665257772
+        },
+        "math": {
+            "score": 0.3333333333333333,
+            "latency": 10.322994709014893
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 5.931423664093018
+        },
+        "tool_calling": {
+            "score": 0.5,
+            "latency": 9.861833214759827
+        }
+    },
+    "meta/llama-3.1-8b-instruct": {
+        "coding": {
+            "score": 1.0,
+            "latency": 2.0767102241516113
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 1.5474124749501545
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 0.9329986572265625
+        },
+        "tool_calling": {
+            "score": 0.5,
+            "latency": 1.9578659534454346
+        }
+    },
+    "meta/llama-3.2-11b-vision-instruct": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 9.026557922363281
+        },
+        "math": {
+            "score": 0.6666666666666666,
+            "latency": 3.2198317845662436
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 1.4340713024139404
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 1.1903101205825806
+        }
+    },
+    "meta/llama-3.2-3b-instruct": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 6.55096697807312
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 2.173598289489746
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 1.2534745931625366
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 5.226554751396179
+        }
+    },
+    "meta/llama-3.2-90b-vision-instruct": {
+        "coding": {
+            "score": 0.3333333333333333,
+            "latency": 11.966448624928793
+        },
+        "math": {
+            "score": 0.3333333333333333,
+            "latency": 14.70899780591329
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 15.180647492408752
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 15.169318318367004
+        }
+    },
+    "meta/llama-3.3-70b-instruct": {
+        "coding": {
+            "score": 0.3333333333333333,
+            "latency": 12.863980372746786
+        },
+        "math": {
+            "score": 0.3333333333333333,
+            "latency": 10.598288377126059
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 8.619481682777405
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 15.16149365901947
+        }
+    },
+    "meta/llama-4-maverick-17b-128e-instruct": {
+        "coding": {
+            "score": 1.0,
+            "latency": 4.494216521581014
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 4.9521143436431885
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 1.029870867729187
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 1.0801409482955933
+        }
+    },
+    "meta/llama-guard-4-12b": {
+        "coding": {
+            "score": 0.0,
+            "latency": 0.6345747311909994
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 0.5153284867604574
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 0.5248926877975464
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.3556821346282959
+        }
+    },
+    "minimaxai/minimax-m2.7": {
+        "coding": {
+            "score": 0.3333333333333333,
+            "latency": 11.372267802556356
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 4.605582078297933
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 11.743252873420715
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 1.731693148612976
+        }
+    },
+    "minimaxai/minimax-m3": {
+        "coding": {
+            "score": 0.0,
+            "latency": 0.623937209447225
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 0.5770711104075114
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 2.8410028219223022
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.5206887722015381
+        }
+    },
+    "mistralai/ministral-14b-instruct-2512": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 7.487761338551839
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 15.165416479110718
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 4.01184618473053
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 1.6610426902770996
+        }
+    },
+    "mistralai/mistral-large-3-675b-instruct-2512": {
+        "coding": {
+            "score": 1.0,
+            "latency": 3.1804839769999185
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 6.02195127805074
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 0.8741258382797241
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 1.8029520511627197
+        }
+    },
+    "mistralai/mistral-medium-3.5-128b": {
+        "coding": {
+            "score": 1.0,
+            "latency": 4.522481362024943
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 4.070361693700154
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 1.2320890426635742
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 1.0436455011367798
+        }
+    },
+    "mistralai/mistral-nemotron": {
+        "coding": {
+            "score": 1.0,
+            "latency": 3.2743783791859946
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 7.192095994949341
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 1.2369129657745361
+        },
+        "tool_calling": {
+            "score": 0.5,
+            "latency": 1.2902894020080566
+        }
+    },
+    "mistralai/mistral-small-4-119b-2603": {
+        "coding": {
+            "score": 1.0,
+            "latency": 1.8541568120320637
+        },
+        "math": {
+            "score": 0.6666666666666666,
+            "latency": 3.2540105183919272
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 0.7232697010040283
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 0.6868467330932617
+        }
+    },
+    "mistralai/mixtral-8x7b-instruct-v0.1": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 10.470353523890177
+        },
+        "math": {
+            "score": 0.3333333333333333,
+            "latency": 13.495641469955444
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 8.78820788860321
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.4726600646972656
+        }
+    },
+    "moonshotai/kimi-k2.6": {
+        "coding": {
+            "score": 0.3333333333333333,
+            "latency": 10.360416968663534
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 13.937491257985434
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 15.161706805229187
+        },
+        "tool_calling": {
+            "score": 0.5,
+            "latency": 10.838955760002136
+        }
+    },
+    "nvidia/gliner-pii": {
+        "coding": {
+            "score": 0.3333333333333333,
+            "latency": 0.4684174060821533
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 0.5214347044626871
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 0.5210006237030029
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.4206165075302124
+        }
+    },
+    "nvidia/ising-calibration-1-35b-a3b": {
+        "coding": {
+            "score": 0.3333333333333333,
+            "latency": 8.30700675646464
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 6.878148555755615
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 15.187451720237732
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 1.9063383340835571
+        }
+    },
+    "nvidia/llama-3.1-nemoguard-8b-content-safety": {
+        "coding": {
+            "score": 0.0,
+            "latency": 0.843887726465861
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 0.5879773298899332
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 0.540976881980896
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.3715848922729492
+        }
+    },
+    "nvidia/llama-3.1-nemoguard-8b-topic-control": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 0.7884808381398519
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 0.5226718584696451
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 0.5190063714981079
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.400895357131958
+        }
+    },
+    "nvidia/llama-3.1-nemotron-nano-vl-8b-v1": {
+        "coding": {
+            "score": 1.0,
+            "latency": 2.5128657023111978
+        },
+        "math": {
+            "score": 0.6666666666666666,
+            "latency": 6.504361152648926
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 1.4388971328735352
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.41165316104888916
+        }
+    },
+    "nvidia/llama-3.1-nemotron-safety-guard-8b-v3": {
+        "coding": {
+            "score": 0.0,
+            "latency": 0.7698095639546713
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 0.6510241826375326
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 0.6794259548187256
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.4272574186325073
+        }
+    },
+    "nvidia/llama-3.3-nemotron-super-49b-v1.5": {
+        "coding": {
+            "score": 0.3333333333333333,
+            "latency": 14.865716695785522
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 15.16975482304891
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 15.19348955154419
+        },
+        "tool_calling": {
+            "score": 0.5,
+            "latency": 12.701631426811218
+        }
+    },
+    "nvidia/nemotron-3-content-safety": {
+        "coding": {
+            "score": 0.0,
+            "latency": 0.5297091007232666
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 0.5679121812184652
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 0.5349295139312744
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.49586260318756104
+        }
+    },
+    "nvidia/nemotron-3-nano-30b-a3b": {
+        "coding": {
+            "score": 1.0,
+            "latency": 1.4766980806986492
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 2.6104236443837485
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 4.92191743850708
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 2.5194268226623535
+        }
+    },
+    "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning": {
+        "coding": {
+            "score": 1.0,
+            "latency": 1.4110422134399414
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 1.2430508136749268
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 2.6667914390563965
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 2.6198607683181763
+        }
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+        "coding": {
+            "score": 1.0,
+            "latency": 6.125550667444865
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 2.1578502655029297
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 9.219257593154907
+        },
+        "tool_calling": {
+            "score": 0.5,
+            "latency": 2.688360810279846
+        }
+    },
+    "nvidia/nemotron-3.5-content-safety": {
+        "coding": {
+            "score": 0.0,
+            "latency": 0.5377238591512045
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 0.5420527458190918
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 0.5153239965438843
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.5214345455169678
+        }
+    },
+    "nvidia/nemotron-content-safety-reasoning-4b": {
+        "coding": {
+            "score": 1.0,
+            "latency": 2.537544012069702
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 3.9785985946655273
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 1.2195329666137695
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.47232866287231445
+        }
+    },
+    "nvidia/nemotron-mini-4b-instruct": {
+        "coding": {
+            "score": 1.0,
+            "latency": 2.7169225215911865
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 2.837512493133545
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 1.3536227941513062
+        },
+        "tool_calling": {
+            "score": 0.5,
+            "latency": 13.228132963180542
+        }
+    },
+    "nvidia/nemotron-nano-12b-v2-vl": {
+        "coding": {
+            "score": 1.0,
+            "latency": 3.6892189979553223
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 5.436820030212402
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 1.720323085784912
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 1.6806703805923462
+        }
+    },
+    "nvidia/nvidia-nemotron-nano-9b-v2": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 9.499911944071451
+        },
+        "math": {
+            "score": 0.6666666666666666,
+            "latency": 12.94058895111084
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 4.690848708152771
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 6.101288080215454
+        }
+    },
+    "nvidia/riva-translate-4b-instruct-v1.1": {
+        "coding": {
+            "score": 0.0,
+            "latency": 0.9280192057291666
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 1.411675214767456
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 1.607572078704834
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.41505980491638184
+        }
+    },
+    "openai/gpt-oss-20b": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 6.289942026138306
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 1.8540961742401123
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 8.369163751602173
+        },
+        "tool_calling": {
+            "score": 0.5,
+            "latency": 3.171708106994629
+        }
+    },
+    "qwen/qwen3-next-80b-a3b-instruct": {
+        "coding": {
+            "score": 1.0,
+            "latency": 3.5290510654449463
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 4.958823045094808
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 1.1327391862869263
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 1.0354210138320923
+        }
+    },
+    "qwen/qwen3.5-122b-a10b": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 6.1825307210286455
+        },
+        "math": {
+            "score": 0.3333333333333333,
+            "latency": 4.840368827184041
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 7.07564103603363
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 7.9725563526153564
+        }
+    },
+    "sarvamai/sarvam-m": {
+        "coding": {
+            "score": 0.0,
+            "latency": 15.195801973342896
+        },
+        "math": {
+            "score": 0.0,
+            "latency": 15.159626881281534
+        },
+        "writing": {
+            "score": 0.0,
+            "latency": 15.198774695396423
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.3740955591201782
+        }
+    },
+    "stepfun-ai/step-3.5-flash": {
+        "coding": {
+            "score": 1.0,
+            "latency": 3.179920752843221
+        },
+        "math": {
+            "score": 1.0,
+            "latency": 4.275473117828369
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 8.916210174560547
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 2.378450393676758
+        }
+    },
+    "stepfun-ai/step-3.7-flash": {
+        "coding": {
+            "score": 1.0,
+            "latency": 8.825601816177368
+        },
+        "math": {
+            "score": 0.6666666666666666,
+            "latency": 7.503060579299927
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 10.00141191482544
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 6.10095739364624
+        }
+    },
+    "stockmark/stockmark-2-100b-instruct": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 10.472561120986938
+        },
+        "math": {
+            "score": 0.6666666666666666,
+            "latency": 8.16832423210144
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 4.708901047706604
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 0.3772794008255005
+        }
+    },
+    "upstage/solar-10.7b-instruct": {
+        "coding": {
+            "score": 1.0,
+            "latency": 3.2724618911743164
+        },
+        "math": {
+            "score": 0.6666666666666666,
+            "latency": 4.449579159418742
+        },
+        "writing": {
+            "score": 0.5,
+            "latency": 2.680403232574463
+        },
+        "tool_calling": {
+            "score": 0.0,
+            "latency": 5.1313393115997314
+        }
+    },
+    "z-ai/glm-5.1": {
+        "coding": {
+            "score": 0.6666666666666666,
+            "latency": 2.0915422439575195
+        },
+        "math": {
+            "score": 0.6666666666666666,
+            "latency": 2.0182607173919678
+        },
+        "writing": {
+            "score": 1.0,
+            "latency": 0.8939857482910156
+        },
+        "tool_calling": {
+            "score": 1.0,
+            "latency": 1.040873646736145
+        }
+    }
+}
