@@ -1,0 +1,52 @@
+name: Weekly NVIDIA NIM Model Evaluation
+
+on:
+  schedule:
+    # Run every Sunday at midnight UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch: # Allows manual runs from the GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          pip install requests python-dotenv
+
+      - name: Run Model Probe (Phase 1)
+        env:
+          NIM_API_KEY: ${{ secrets.NIM_API_KEY }}
+        run: python probe.py
+
+      - name: Run Model Evaluator (Phase 3 & 5)
+        env:
+          NIM_API_KEY: ${{ secrets.NIM_API_KEY }}
+        run: python run.py
+
+      - name: Commit and Push Results
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add alive_models.json results.json router.json
+          
+          # We check if there are any changes staged to prevent the commit command from failing.
+          if git diff --cached --quiet; then
+            echo "No changes in evaluation results to commit."
+          else
+            git commit -m "Automated Weekly NIM Model Evaluation Updates [skip ci]"
+            git push
+          fi
