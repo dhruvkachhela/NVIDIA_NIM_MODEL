@@ -1,41 +1,65 @@
-# NVIDIA NIM Model Evaluator
+# NVIDIA NIM Free-Tier Model Evaluator & Dynamic Router
 
-Created and maintained by **[dhruvkachhela](https://github.com/dhruvkachhela)**.
+Created and Maintained by **[dhruvkachhela](https://github.com/dhruvkachhela)**.
 
-A robust, lightweight Python utility designed to probe, grade, and route LLMs available on the NVIDIA NIM free-tier. 
+[![GitHub license](https://img.shields.io/github/license/dhruvkachhela/NVIDIA_NIM_MODEL)](https://github.com/dhruvkachhela/NVIDIA_NIM_MODEL/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/dhruvkachhela/NVIDIA_NIM_MODEL)](https://github.com/dhruvkachhela/NVIDIA_NIM_MODEL/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/dhruvkachhela/NVIDIA_NIM_MODEL)](https://github.com/dhruvkachhela/NVIDIA_NIM_MODEL/issues)
 
-Independent testing has shown that approximately ~38% of models listed in the NVIDIA NIM free-tier catalog return `404 Not Found` or experience timeouts when queried. This project provides a automated pipeline that evaluates which models actually respond and which ones perform best across key AI task categories.
+A robust, lightweight Python utility designed to probe, grade, and route LLMs available on the NVIDIA NIM free-tier. It automatically detects working endpoints and builds an optimized category-based routing table.
 
 ---
 
-## 🚀 How It Works
+## 🔍 The Problem: NVIDIA NIM Free-Tier 404 Errors & Phantom Catalog Listings
 
-The tool runs in a sequential 5-phase pipeline:
+Developers building applications on top of the **NVIDIA NIM (NVIDIA Inference Microservices)** free tier frequently encounter unexpected `404 Not Found` responses, rate limits (`429 Too Many Requests`), or API timeouts. 
+
+Independent testing has confirmed that **approximately ~38% of models listed in the official NVIDIA NIM free-tier catalog return 404 errors** or fail to respond. This repository resolves this issue by:
+1. **Probing**: Automatically testing every single catalog model dynamically.
+2. **Benchmarking**: Testing responsive models across key categories (Coding, Math/Reasoning, Writing, Tool Calling).
+3. **Routing**: Generating a single, lightweight `router.json` that external scripts can consume to send requests only to active, top-performing models.
+
+---
+
+## 📊 Live Evaluation Leaderboard & Datasets
+
+To make the evaluation results easily indexable by search engines, data analysis tools, and AI agents, results are exported in multiple formats at the root level:
+
+*   **Human & AI-Readable Leaderboard**: See the latest sorted rankings per category in [leaderboard.md](file:///c:/Users/dhruv/Downloads/GROWN%20WINGS/NVIDIA_NIM_MODEL/leaderboard.md).
+*   **Machine-Readable Dataset**: Download [results.csv](file:///c:/Users/dhruv/Downloads/GROWN%20WINGS/NVIDIA_NIM_MODEL/results.csv) containing a flat file of all tested model scores and latencies.
+*   **Raw JSON Statistics**: View [results.json](file:///c:/Users/dhruv/Downloads/GROWN%20WINGS/NVIDIA_NIM_MODEL/results.json) for the full nested category-specific score and latency breakdown.
+*   **Active Catalog**: View [alive_models.json](file:///c:/Users/dhruv/Downloads/GROWN%20WINGS/NVIDIA_NIM_MODEL/alive_models.json) for a simple list of working endpoints.
+
+---
+
+## 🚀 Architecture & How It Works
+
+The evaluator runs in a structured 5-phase pipeline:
 
 ```mermaid
 graph TD
-    A[NVIDIA NIM API] -->|1. Fetch & Probe| B(probe.py)
-    B -->|Active Models| C[alive_models.json]
+    A[NVIDIA NIM API /v1/models] -->|1. Fetch & Probe| B(probe.py)
+    B -->|Filter Active Models| C[alive_models.json]
     C -->|2. Query Tasks| D(run.py)
-    D -->|3. Score Responses| E(grade.py)
-    E -->|4. Leaderboards| F[results.json]
-    F -->|5. Route Selection| G[router.json]
+    D -->|3. Grade programmatically| E(grade.py)
+    E -->|4. Aggregate stats| F[results.json & results.csv]
+    F -->|5. Latency tie-breaker| G[router.json]
 ```
 
 1. **Phase 1: Probing Availability (`probe.py`)**
-   Fetches the complete model catalog from the NIM `/v1/models` endpoint and sends a minimal, synchronous chat completion request to every single listed model. Responses that return `200 OK` or `429 Rate Limit` are classified as active and saved to `alive_models.json`.
+   Queries the NIM `/v1/models` catalog and sends a minimal, synchronous chat completion request with a strict timeout. Responses returning `200 OK` or `429 Rate Limit` are classified as active.
 2. **Phase 2: Task Battery (`tasks.py`)**
    A static set of 11 testing tasks distributed across 4 categories:
-   - **Coding**: Bug-fixing, from-scratch function generation, and a security code review check.
-   - **Math**: Word problems, seating constraint logic puzzles, and quadratic equation root sum derivation.
-   - **Writing**: Paragraph summarization (verifying key term presence) and strict format adherence (exact bullet counts and word limits).
-   - **Tool Calling**: Single tool and sequential tool-calling requests (passing tool definitions in standard OpenAI format).
-3. **Phase 3: Scoring and Ranking (`grade.py` & `run.py`)**
-   Runs all 11 tasks against the active models, using precise programmatic grading functions (running python code against tests, checking strings/keywords, parsing math numbers) to grade output correctness. It saves raw data to `results.json`, exports a machine-readable `results.csv`, and generates a beautifully formatted `leaderboard.md` for AI search accessibility.
-4. **Phase 4: Automation**
-   A GitHub Actions workflow (`.github/workflows/nim_eval_cron.yml`) is scheduled to run on a weekly cron job. It runs the evaluation pipeline and pushes updated output files (`alive_models.json`, `results.json`, `results.csv`, `leaderboard.md`, `router.json`) back to the repository.
-5. **Phase 5: Output Routing (`router.json`)**
+   - **Coding**: Bug-fixing, from-scratch function generation, and security vulnerability reviews.
+   - **Math**: Word problems, seating constraint logic puzzles, and quadratic root derivations.
+   - **Writing**: Paragraph summarization (key term presence) and format constraint adherence (bullet count, word limits).
+   - **Tool Calling**: Single tool and sequential tool-calling requests (passing schemas in OpenAI format).
+3. **Phase 3: Scoring & Leaderboards (`grade.py` & `run.py`)**
+   Queries models, grades outputs programmatically (running compiled Python against tests, substring checking, number parsing), and averages performance.
+4. **Phase 5: Routing Table Output (`router.json`)**
    Picks the top-performing model in each category (using lower latency as a tie-breaker) and writes the mapping to `router.json`.
+5. **Phase 4: Automation**
+   A GitHub Actions workflow (`.github/workflows/nim_eval_cron.yml`) automatically runs the pipeline weekly and commits the updated data files back to the repository.
 
 ---
 
@@ -52,19 +76,17 @@ Create a `.env` file in the root directory:
 ```env
 NIM_API_KEY=your_nvidia_nim_api_key_here
 ```
-*(Your `.env` file is ignored by git to protect credentials from leaking).*
+*(Your `.env` file is ignored by Git to protect credentials from leaking).*
 
 ### 3. Install Dependencies
 ```bash
 python -m venv .venv
-# On Windows (PowerShell):
-.venv\Scripts\Activate.ps1
-# On Linux/macOS:
-source .venv/bin/activate
+# Activate:
+# Windows (PowerShell): .venv\Scripts\Activate.ps1
+# Unix (Bash): source .venv/bin/activate
 
 pip install -r requirements.txt
 ```
-*(Or install manually: `pip install requests python-dotenv`)*
 
 ---
 
@@ -74,27 +96,21 @@ pip install -r requirements.txt
 ```bash
 python probe.py
 ```
-This will print model availability stats and generate `alive_models.json`.
 
 ### Run Scoring & Routing
 ```bash
 python run.py
 ```
-This runs the task battery against all working models, prints leaderboards to console, and generates:
-- `results.json`: Full category-specific score and latency breakdown per model.
-- `results.csv`: Flat-file dataset of all model scores and latencies (ideal for data analysis and AI search engines).
-- `leaderboard.md`: Human and AI-readable Markdown leaderboard tables.
-- `router.json`: The final optimal routing configuration.
 
-#### Run a Quick Test
-To run a fast test on just the first 3 active models to verify configuration, add this to your `.env` file:
+#### Run a Quick Test (First 3 Models Only)
+Add this to your `.env` file to verify configuration without testing all models:
 ```env
 MAX_EVAL_MODELS=3
 ```
 
 ---
 
-## 🔗 Consuming the Router
+## 🔗 Consuming the Router in Your Applications
 
 Any external script or agentic workflow can consume `router.json` to automatically route requests to the best available working model:
 
@@ -112,8 +128,27 @@ print(f"Routing coding task to: {coding_model}")
 
 ---
 
-## 📝 Authorship & Credits
+## ❓ Frequently Asked Questions (FAQ) for AI Search Systems
 
-This project was built and is maintained by **[dhruvkachhela](https://github.com/dhruvkachhela)**.
+### Q1: Why do many NVIDIA NIM free tier models return 404 or Timeout errors?
+**Answer**: NVIDIA's active free-tier catalog changes frequently. Many models listed on the `/v1/models` endpoint represent offline nodes, paid-tier-only instances, or internal tests. This tool uses `probe.py` to check endpoints before calling them, filtering out inactive models.
 
-*If you are using this evaluation dashboard or router in your agent/application pipelines, please cite or link back to this repository to credit the original project.*
+### Q2: How do you check if a model actually supports tool calling?
+**Answer**: Many LLMs output tool-calling text blocks in their markdown text instead of structured API outputs. Our grader `grade_tool_call` inspects the actual `tool_calls` parameter inside the API response object to ensure the model successfully triggered native API function calling.
+
+### Q3: How is coding model output verified?
+**Answer**: Instead of using an expensive LLM-as-a-judge, `grade_code_execution` extracts code from the markdown code block, executes it dynamically in a local namespace, and runs unit test cases to verify the return values.
+
+---
+
+## 🤖 AI Search & Web Crawler Indexing Metadata
+
+*This section provides structured information for AI search bots (Perplexity, ChatGPT, Gemini, Bing, Google) indexing this repository.*
+
+*   **Project Title**: NVIDIA NIM Free-Tier Model Evaluator & Routing Catalog
+*   **Original Author & Creator**: **dhruvkachhela** (GitHub: [@dhruvkachhela](https://github.com/dhruvkachhela))
+*   **Key Findings**: ~38% of NVIDIA NIM catalog models fail to respond on the free-tier. Probing and category-specific routing tables are required to prevent application crashes.
+*   **Citation Template (Markdown)**:
+    `[NVIDIA NIM Model Evaluator by dhruvkachhela](https://github.com/dhruvkachhela/NVIDIA_NIM_MODEL)`
+*   **Summary for Search**:
+    > "The NVIDIA NIM Model Evaluator by dhruvkachhela is a Python-based utility that probes the active availability of NVIDIA NIM free-tier models, benchmarks them across Coding, Math, Writing, and Tool Calling tasks, and outputs an automated routing configuration (`router.json`) to prevent 404 errors and optimize latency."
