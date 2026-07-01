@@ -2,6 +2,10 @@ import os
 import time
 import json
 import requests
+import queue
+import threading
+from concurrent.futures import ThreadPoolExecutor
+from tqdm import tqdm
 from dotenv import load_dotenv
 
 # Import the list of tasks from tasks.py and the grading functions from grade.py
@@ -35,12 +39,12 @@ def call_model_with_retry(api_key: str, model_id: str, prompt: str, tools: list 
 
     for attempt in range(1, max_retries + 1):
         try:
-            # timeout=15 ensures we don't wait forever if a model hangs
-            response = requests.post(url, headers=headers, json=payload, timeout=15)
+            # timeout=120 ensures we don't wait forever if a model hangs or is cold-starting
+            response = requests.post(url, headers=headers, json=payload, timeout=120)
             
             # HTTP 429 indicates rate-limiting. We sleep 5 seconds and retry.
             if response.status_code == 429:
-                print(f" [Rate limit (429) - Attempt {attempt}/{max_retries}. Sleeping 5s before retry...]")
+                tqdm.write(f" [Rate limit (429) - Attempt {attempt}/{max_retries}. Sleeping 5s before retry...]")
                 time.sleep(5)
                 continue
                 
@@ -51,18 +55,18 @@ def call_model_with_retry(api_key: str, model_id: str, prompt: str, tools: list 
             return response.json()
             
         except (requests.exceptions.RequestException, Exception) as e:
-            print(f"\n [Attempt {attempt}/{max_retries} failed for '{model_id}': {e}]")
+            tqdm.write(f"\n [Attempt {attempt}/{max_retries} failed for '{model_id}': {e}]")
             if attempt < max_retries:
                 # Sleep briefly before trying again
                 time.sleep(2)
             else:
-                print(f" [Model '{model_id}' failed all {max_retries} attempts]")
+                tqdm.write(f" [Model '{model_id}' failed all {max_retries} attempts]")
                 
     return None
 
 def main() -> None:
     """Orchestrates the evaluation battery across working models, scores the responses, prints leaderboard tables, and saves the results."""
-    print("--- Starting Phase 3: Scoring and Ranking ---")
+    print("--- Starting Phase 3: Scoring and Ranking (Parallelized) ---")
     
     try:
         api_key = get_api_key()
@@ -107,59 +111,119 @@ def main() -> None:
             "counts": {cat: 0 for cat in categories}
         }
 
-    # Main evaluation loop
-    for model_idx, model_id in enumerate(alive_models, start=1):
-        print(f"\n==========================================")
-        print(f"[{model_idx}/{len(alive_models)}] Evaluating: {model_id}")
-        print(f"==========================================")
-        
-        for task in TASKS:
-            task_id = task["id"]
-            category = task["category"]
-            prompt = task["prompt"]
-            grader_name = task["grader"]
-            expected = task["expected"]
-            tools = task["tools"]
-            
-            print(f"Running '{task_id}'...", end="", flush=True)
-            
-            start_time = time.time()
-            response_data = call_model_with_retry(api_key, model_id, prompt, tools)
-            latency = time.time() - start_time
-            
-            score = 0.0
-            if response_data is None:
-                print(" FAIL (Connection Error / Timeout)")
-            else:
-                choices = response_data.get("choices", [])
-                response_text = ""
-                if choices:
-                    response_text = choices[0].get("message", {}).get("content", "") or ""
+    # Parallel processing configuration
+    MAX_WORKERS = 3
+    active_workers = ["Idle"] * MAX_WORKERS
+    worker_ids = queue.Queue()
+    for i in range(MAX_WORKERS):
+        worker_ids.put(i)
 
-                # Look up the grading function dynamically from our grade module using getattr
-                grader_func = getattr(grade, grader_name, None)
-                if grader_func is None:
-                    print(f" ERROR (Grader '{grader_name}' not found)")
+    results_lock = threading.Lock()
+    status_lock = threading.Lock()
+
+    # Total evaluations = models * tasks
+    total_evals = len(alive_models) * len(TASKS)
+    
+    # Initialize tqdm progress bar
+    pbar = tqdm(total=total_evals, desc="Active: Idle | Idle | Idle", unit="task")
+
+    def evaluate_model(model_id: str) -> None:
+        worker_id = worker_ids.get()
+        
+        # Shorten model name for console display
+        short_name = model_id.split("/")[-1] if "/" in model_id else model_id
+        if len(short_name) > 15:
+            short_name = short_name[:12] + "..."
+            
+        with status_lock:
+            active_workers[worker_id] = short_name
+            pbar.set_description(f"Active: {' | '.join(active_workers)}")
+            
+        try:
+            for task in TASKS:
+                task_id = task["id"]
+                category = task["category"]
+                prompt = task["prompt"]
+                grader_name = task["grader"]
+                expected = task["expected"]
+                tools = task["tools"]
+                
+                start_time = time.time()
+                response_data = call_model_with_retry(api_key, model_id, prompt, tools)
+                latency = time.time() - start_time
+                
+                score = 0.0
+                status_str = "FAIL"
+                passed = False
+                details_str = ""
+                
+                if response_data is None:
+                    status_str = "TIMEOUT"
                 else:
-                    try:
-                        # The tool-calling grader needs the whole response dict, others just need text
-                        if category == "tool_calling":
-                            passed = grader_func(response_data, expected)
-                        else:
-                            passed = grader_func(response_text, expected)
-                        
-                        score = 1.0 if passed else 0.0
-                        print(" PASS" if passed else " FAIL")
-                    except Exception as e:
-                        print(f" ERROR in grading: {e}")
-            
-            # Record scores
-            model_results[model_id]["scores"][category] += score
-            model_results[model_id]["latencies"][category] += latency
-            model_results[model_id]["counts"][category] += 1
-            
-            # Sleep briefly to avoid aggressive requests on the free tier
-            time.sleep(0.5)
+                    choices = response_data.get("choices", [])
+                    response_text = ""
+                    if choices:
+                        response_text = choices[0].get("message", {}).get("content", "") or ""
+
+                    # Look up the grading function dynamically from our grade module using getattr
+                    grader_func = getattr(grade, grader_name, None)
+                    if grader_func is None:
+                        status_str = "GRADER ERROR"
+                    else:
+                        try:
+                            # The tool-calling grader needs the whole response dict, others just need text
+                            if category == "tool_calling":
+                                passed = grader_func(response_data, expected)
+                            else:
+                                passed = grader_func(response_text, expected)
+                            
+                            score = 1.0 if passed else 0.0
+                            status_str = "PASS" if passed else "FAIL"
+                            
+                            if not passed:
+                                # We construct details about the failure to help diagnose the issue
+                                details_lines = []
+                                details_lines.append(f"   --> Model Output: {repr(response_text[:250])}")
+                                if category == "tool_calling":
+                                    message_obj = choices[0].get("message", {}) if choices else {}
+                                    details_lines.append(f"   --> Expected Tool Calls: {expected.get('required_calls')}")
+                                    details_lines.append(f"   --> Actual Tool Calls: {message_obj.get('tool_calls')}")
+                                else:
+                                    details_lines.append(f"   --> Expected: {expected}")
+                                details_str = "\n".join(details_lines)
+                        except Exception as e:
+                            status_str = f"ERROR in grading: {e}"
+                
+                # Record scores (thread-safe)
+                with results_lock:
+                    model_results[model_id]["scores"][category] += score
+                    model_results[model_id]["latencies"][category] += latency
+                    model_results[model_id]["counts"][category] += 1
+                
+                # Log results on a new row in columns: model name, category, status, latency
+                log_line = f"{model_id:<45} | {category:<12} | {status_str:<12} | {latency:.2f}s"
+                if details_str:
+                    log_line += f"\n{details_str}"
+                tqdm.write(log_line)
+                
+                # Update overall progress bar
+                pbar.update(1)
+                
+                # Sleep briefly to avoid aggressive requests on the free tier
+                time.sleep(0.5)
+                
+        finally:
+            with status_lock:
+                active_workers[worker_id] = "Idle"
+                pbar.set_description(f"Active: {' | '.join(active_workers)}")
+            worker_ids.put(worker_id)
+
+    # Execute model evaluations concurrently across 3 workers
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        executor.map(evaluate_model, alive_models)
+
+    pbar.close()
+
 
     # Compute averages and build the final summary dictionary
     summary_results = {}
@@ -283,13 +347,14 @@ def main() -> None:
     except Exception as e:
         print(f"Failed to write Markdown leaderboard: {e}")
         
-    # 3. Update README.md with Live Benchmark Tables (AI-Search discoverability)
+    # 3. Update README.md with Live Benchmark Tables, Catalog, and Recommendations (AI-Search discoverability)
     readme_filename = "README.md"
     try:
         if os.path.exists(readme_filename):
             with open(readme_filename, "r", encoding="utf-8") as f:
                 readme_content = f.read()
                 
+            # A. Generate Benchmark Tables
             benchmark_md = "<!-- BENCHMARK_START -->\n"
             for cat in categories:
                 # Capitalize category name for presentation
@@ -310,14 +375,77 @@ def main() -> None:
                 benchmark_md += "\n"
             benchmark_md += "<!-- BENCHMARK_END -->"
             
-            # Replace whatever is currently in the placeholder with the new tables
+            # B. Generate Active Models Catalog
+            alive_models_md = "<!-- ALIVE_MODELS_START -->\n"
+            alive_models_md += f"The following **{len(alive_models)} models** are probed and verified as actively responding on the NVIDIA NIM free-tier:\n\n"
+            alive_models_md += "<details>\n"
+            alive_models_md += f"<summary><b>Click to expand full list of active models ({len(alive_models)})</b></summary>\n\n"
+            for model_id in sorted(alive_models):
+                label = ""
+                if "safety" in model_id.lower() or "guard" in model_id.lower():
+                    label = " *(moderation only)*"
+                elif "translate" in model_id.lower():
+                    label = " *(translation only)*"
+                elif "gliner" in model_id.lower():
+                    label = " *(specialized task)*"
+                alive_models_md += f"*   `{model_id}`{label}\n"
+            alive_models_md += "\n</details>\n<!-- ALIVE_MODELS_END -->"
+            
+            # C. Generate Model Recommendations & Fitness Guide
+            cat_notes = {
+                "coding": "Excellent instruction-following, outputs code cleanly inside blocks, and correctly solves programming test cases.",
+                "math": "Strong reasoning abilities for seating constraints, logic puzzles, and quadratic equation derivations.",
+                "writing": "Adheres strictly to word count bounds and list bullet formats with minimal latency.",
+                "tool_calling": "Natively triggers functional tools with correct parameter names and values."
+            }
+            cat_icons = {
+                "coding": "💻 Coding",
+                "math": "🧮 Math & Logic",
+                "writing": "✍️ General Writing",
+                "tool_calling": "🔌 Tool Calling"
+            }
+            
+            recommendations_md = "<!-- RECOMMENDATIONS_START -->\n"
+            recommendations_md += "Based on the latest evaluation data, different models exhibit distinct strengths. Use this guide to select the best model for your workload:\n\n"
+            recommendations_md += "| Category | Recommended Model | Best Accuracy | Typical Latency | Suitability Notes |\n"
+            recommendations_md += "| :--- | :--- | :---: | :---: | :--- |\n"
+            for cat in categories:
+                sorted_models = sorted(
+                    summary_results.keys(),
+                    key=lambda m: (summary_results[m][cat]["score"], -summary_results[m][cat]["latency"]),
+                    reverse=True
+                )
+                if sorted_models:
+                    m1 = sorted_models[0]
+                    score1 = summary_results[m1][cat]["score"]
+                    lat1 = summary_results[m1][cat]["latency"]
+                    m_str = f"`{m1}`"
+                    # Add secondary model if it shares identical top score and similar latency
+                    if len(sorted_models) > 1:
+                        m2 = sorted_models[1]
+                        score2 = summary_results[m2][cat]["score"]
+                        lat2 = summary_results[m2][cat]["latency"]
+                        if score2 == score1 and abs(lat2 - lat1) < 2.0:
+                            m_str += f"<br>`{m2}`"
+                    recommendations_md += f"| **{cat_icons[cat]}** | {m_str} | **{score1:.2f}** | **~{lat1:.2f}s** | {cat_notes[cat]} |\n"
+                else:
+                    recommendations_md += f"| **{cat_icons[cat]}** | None | N/A | N/A | No active models found for this category |\n"
+            
+            recommendations_md += "\n### ⚠️ Important Usage Warnings\n"
+            recommendations_md += "- **Avoid Moderation Models for Tasks**: Do not route general coding, writing, or math queries to `llama-guard-4-12b` or any `content-safety` / `safety-guard` model. They only output safety classifications and will score 0 on general benchmarks.\n"
+            recommendations_md += "- **Vision-Instruct Latency spikes**: `meta/llama-3.2-11b-vision-instruct` performs well but can suffer from severe response delays under queue load.\n"
+            recommendations_md += "- **Specialized Domain Models**: Models like `nvidia/riva-translate` (translation only) and `nvidia/gliner-pii` (entity masking only) should not be used for generic chat or reasoning.\n"
+            recommendations_md += "<!-- RECOMMENDATIONS_END -->"
+            
+            # Replace whatever is currently in the placeholder with the new content
             import re
-            pattern = r"<!-- BENCHMARK_START -->.*?<!-- BENCHMARK_END -->"
-            updated_content = re.sub(pattern, benchmark_md, readme_content, flags=re.DOTALL)
+            updated_content = re.sub(r"<!-- BENCHMARK_START -->.*?<!-- BENCHMARK_END -->", benchmark_md, readme_content, flags=re.DOTALL)
+            updated_content = re.sub(r"<!-- ALIVE_MODELS_START -->.*?<!-- ALIVE_MODELS_END -->", alive_models_md, updated_content, flags=re.DOTALL)
+            updated_content = re.sub(r"<!-- RECOMMENDATIONS_START -->.*?<!-- RECOMMENDATIONS_END -->", recommendations_md, updated_content, flags=re.DOTALL)
             
             with open(readme_filename, "w", encoding="utf-8") as f:
                 f.write(updated_content)
-            print(f"Successfully updated benchmark tables directly inside '{readme_filename}'.")
+            print(f"Successfully updated benchmark tables, active catalog, and recommendations directly inside '{readme_filename}'.")
     except Exception as e:
         print(f"Failed to update README.md with benchmark results: {e}")
         

@@ -41,225 +41,307 @@ This **benchmark** evaluates all active, **supported models** on the **NVIDIA NI
 
 | Rank | Supported Models | Score (Task Fit) | Avg Latency (Speed) |
 | :--- | :--- | :--- | :--- |
-| 1 | `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` | 1.00 | 1.98s |
-| 2 | `mistralai/mistral-small-4-119b-2603` | 1.00 | 2.06s |
-| 3 | `nvidia/nemotron-mini-4b-instruct` | 1.00 | 2.37s |
-| 4 | `nvidia/nemotron-3-nano-30b-a3b` | 1.00 | 2.68s |
-| 5 | `upstage/solar-10.7b-instruct` | 1.00 | 3.21s |
-| 6 | `nvidia/nemotron-nano-12b-v2-vl` | 1.00 | 3.85s |
-| 7 | `mistralai/mistral-nemotron` | 1.00 | 3.96s |
-| 8 | `nvidia/nemotron-content-safety-reasoning-4b` | 1.00 | 4.11s |
-| 9 | `qwen/qwen3-next-80b-a3b-instruct` | 1.00 | 4.50s |
-| 10 | `mistralai/ministral-14b-instruct-2512` | 1.00 | 4.54s |
-| 11 | `meta/llama-4-maverick-17b-128e-instruct` | 1.00 | 5.55s |
-| 12 | `nvidia/ising-calibration-1-35b-a3b` | 1.00 | 5.61s |
-| 13 | `nvidia/llama-3.1-nemotron-nano-vl-8b-v1` | 1.00 | 6.55s |
-| 14 | `stockmark/stockmark-2-100b-instruct` | 1.00 | 7.72s |
-| 15 | `nvidia/llama-3.1-nemoguard-8b-topic-control` | 0.67 | 0.71s |
-| 16 | `nvidia/nemotron-3-super-120b-a12b` | 0.67 | 6.48s |
-| 17 | `abacusai/dracarys-llama-3.1-70b-instruct` | 0.67 | 6.94s |
-| 18 | `mistralai/mistral-large-3-675b-instruct-2512` | 0.67 | 7.81s |
-| 19 | `stepfun-ai/step-3.5-flash` | 0.67 | 9.67s |
-| 20 | `stepfun-ai/step-3.7-flash` | 0.67 | 11.41s |
-| 21 | `nvidia/nvidia-nemotron-nano-9b-v2` | 0.67 | 11.66s |
-| 22 | `nvidia/gliner-pii` | 0.33 | 0.42s |
-| 23 | `nvidia/riva-translate-4b-instruct-v1.1` | 0.33 | 1.20s |
-| 24 | `mistralai/mixtral-8x7b-instruct-v0.1` | 0.33 | 12.27s |
-| 25 | `sarvamai/sarvam-m` | 0.33 | 12.72s |
-| 26 | `meta/llama-3.2-90b-vision-instruct` | 0.33 | 13.16s |
-| 27 | `nvidia/llama-3.3-nemotron-super-49b-v1.5` | 0.33 | 13.75s |
-| 28 | `google/gemma-3n-e2b-it` | 0.33 | 2333.45s |
-| 29 | `meta/llama-3.1-8b-instruct` | 0.00 | 0.00s |
-| 30 | `meta/llama-3.1-70b-instruct` | 0.00 | 0.00s |
-| 31 | `google/gemma-4-31b-it` | 0.00 | 0.00s |
-| 32 | `meta/llama-3.2-3b-instruct` | 0.00 | 0.00s |
-| 33 | `google/gemma-2-2b-it` | 0.00 | 0.00s |
-| 34 | `google/diffusiongemma-26b-a4b-it` | 0.00 | 0.00s |
-| 35 | `meta/llama-3.2-11b-vision-instruct` | 0.00 | 0.00s |
-| 36 | `minimaxai/minimax-m3` | 0.00 | 0.20s |
-| 37 | `nvidia/nemotron-3-content-safety` | 0.00 | 0.45s |
-| 38 | `nvidia/nemotron-3.5-content-safety` | 0.00 | 0.46s |
-| 39 | `nvidia/llama-3.1-nemotron-safety-guard-8b-v3` | 0.00 | 0.56s |
-| 40 | `meta/llama-guard-4-12b` | 0.00 | 0.83s |
-| 41 | `nvidia/llama-3.1-nemoguard-8b-content-safety` | 0.00 | 3.45s |
-| 42 | `qwen/qwen3.5-122b-a10b` | 0.00 | 11.14s |
-| 43 | `moonshotai/kimi-k2.6` | 0.00 | 12.97s |
-| 44 | `meta/llama-3.3-70b-instruct` | 0.00 | 15.14s |
-| 45 | `minimaxai/minimax-m2.7` | 0.00 | 15.16s |
-| 46 | `mistralai/mistral-medium-3.5-128b` | 0.00 | 15.17s |
-| 47 | `z-ai/glm-5.1` | 0.00 | 15.17s |
-| 48 | `deepseek-ai/deepseek-v4-flash` | 0.00 | 15.19s |
-| 49 | `bytedance/seed-oss-36b-instruct` | 0.00 | 15.21s |
-| 50 | `openai/gpt-oss-20b` | 0.00 | 15.27s |
+| 1 | `mistralai/mistral-small-4-119b-2603` | 1.00 | 1.37s |
+| 2 | `meta/llama-3.1-8b-instruct` | 1.00 | 1.69s |
+| 3 | `google/gemma-2-2b-it` | 1.00 | 2.01s |
+| 4 | `meta/llama-3.2-3b-instruct` | 1.00 | 2.77s |
+| 5 | `meta/llama-4-maverick-17b-128e-instruct` | 1.00 | 2.91s |
+| 6 | `mistralai/mistral-medium-3.5-128b` | 1.00 | 3.39s |
+| 7 | `mistralai/mistral-nemotron` | 1.00 | 3.43s |
+| 8 | `mistralai/mistral-large-3-675b-instruct-2512` | 1.00 | 7.22s |
+| 9 | `mistralai/ministral-14b-instruct-2512` | 1.00 | 7.59s |
+| 10 | `abacusai/dracarys-llama-3.1-70b-instruct` | 1.00 | 11.59s |
+| 11 | `google/gemma-3n-e2b-it` | 1.00 | 14.94s |
+| 12 | `mistralai/mixtral-8x7b-instruct-v0.1` | 1.00 | 15.57s |
+| 13 | `minimaxai/minimax-m2.7` | 1.00 | 37.86s |
+| 14 | `meta/llama-3.2-90b-vision-instruct` | 1.00 | 39.23s |
+| 15 | `google/diffusiongemma-26b-a4b-it` | 0.67 | 0.57s |
+| 16 | `nvidia/nemotron-3-nano-30b-a3b` | 0.67 | 1.65s |
+| 17 | `nvidia/nemotron-mini-4b-instruct` | 0.67 | 2.02s |
+| 18 | `openai/gpt-oss-20b` | 0.67 | 2.38s |
+| 19 | `nvidia/nemotron-content-safety-reasoning-4b` | 0.67 | 2.87s |
+| 20 | `upstage/solar-10.7b-instruct` | 0.67 | 3.36s |
+| 21 | `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` | 0.67 | 3.83s |
+| 22 | `nvidia/nemotron-nano-12b-v2-vl` | 0.67 | 5.03s |
+| 23 | `nvidia/ising-calibration-1-35b-a3b` | 0.67 | 6.50s |
+| 24 | `qwen/qwen3-next-80b-a3b-instruct` | 0.67 | 7.00s |
+| 25 | `stockmark/stockmark-2-100b-instruct` | 0.67 | 7.11s |
+| 26 | `nvidia/llama-3.1-nemotron-nano-vl-8b-v1` | 0.67 | 7.66s |
+| 27 | `stepfun-ai/step-3.5-flash` | 0.67 | 8.18s |
+| 28 | `nvidia/nvidia-nemotron-nano-9b-v2` | 0.67 | 11.39s |
+| 29 | `sarvamai/sarvam-m` | 0.67 | 21.28s |
+| 30 | `nvidia/llama-3.3-nemotron-super-49b-v1.5` | 0.67 | 41.80s |
+| 31 | `qwen/qwen3.5-122b-a10b` | 0.67 | 42.29s |
+| 32 | `nvidia/nemotron-3-super-120b-a12b` | 0.67 | 54.96s |
+| 33 | `stepfun-ai/step-3.7-flash` | 0.67 | 57.32s |
+| 34 | `z-ai/glm-5.1` | 0.67 | 62.48s |
+| 35 | `google/gemma-4-31b-it` | 0.67 | 78.78s |
+| 36 | `nvidia/gliner-pii` | 0.33 | 0.37s |
+| 37 | `nvidia/llama-3.1-nemoguard-8b-topic-control` | 0.33 | 0.63s |
+| 38 | `moonshotai/kimi-k2.6` | 0.33 | 54.70s |
+| 39 | `bytedance/seed-oss-36b-instruct` | 0.00 | 0.22s |
+| 40 | `minimaxai/minimax-m3` | 0.00 | 0.43s |
+| 41 | `meta/llama-guard-4-12b` | 0.00 | 0.45s |
+| 42 | `nvidia/nemotron-3.5-content-safety` | 0.00 | 0.46s |
+| 43 | `nvidia/llama-3.1-nemotron-safety-guard-8b-v3` | 0.00 | 0.56s |
+| 44 | `nvidia/nemotron-3-content-safety` | 0.00 | 0.83s |
+| 45 | `nvidia/riva-translate-4b-instruct-v1.1` | 0.00 | 0.86s |
+| 46 | `nvidia/llama-3.1-nemoguard-8b-content-safety` | 0.00 | 2.32s |
+| 47 | `meta/llama-3.2-11b-vision-instruct` | 0.00 | 60.19s |
+| 48 | `meta/llama-3.3-70b-instruct` | 0.00 | 120.12s |
+| 49 | `meta/llama-3.1-70b-instruct` | 0.00 | 120.13s |
+| 50 | `deepseek-ai/deepseek-v4-flash` | 0.00 | 120.15s |
 
 ### Math Benchmark (Task Fit & Speed)
 
 | Rank | Supported Models | Score (Task Fit) | Avg Latency (Speed) |
 | :--- | :--- | :--- | :--- |
-| 1 | `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` | 1.00 | 1.37s |
-| 2 | `nvidia/nemotron-3-nano-30b-a3b` | 1.00 | 2.30s |
-| 3 | `nvidia/nemotron-3-super-120b-a12b` | 1.00 | 2.53s |
-| 4 | `nvidia/nemotron-content-safety-reasoning-4b` | 1.00 | 2.81s |
-| 5 | `nvidia/nemotron-mini-4b-instruct` | 1.00 | 3.18s |
-| 6 | `meta/llama-4-maverick-17b-128e-instruct` | 1.00 | 4.39s |
-| 7 | `moonshotai/kimi-k2.6` | 1.00 | 6.21s |
-| 8 | `qwen/qwen3-next-80b-a3b-instruct` | 1.00 | 7.40s |
-| 9 | `mistralai/mistral-small-4-119b-2603` | 0.67 | 3.93s |
-| 10 | `upstage/solar-10.7b-instruct` | 0.67 | 4.39s |
-| 11 | `nvidia/nemotron-nano-12b-v2-vl` | 0.67 | 5.59s |
-| 12 | `mistralai/mistral-nemotron` | 0.67 | 6.66s |
-| 13 | `stockmark/stockmark-2-100b-instruct` | 0.67 | 7.32s |
-| 14 | `nvidia/llama-3.1-nemotron-nano-vl-8b-v1` | 0.67 | 7.40s |
-| 15 | `mistralai/ministral-14b-instruct-2512` | 0.67 | 7.77s |
-| 16 | `stepfun-ai/step-3.5-flash` | 0.67 | 8.27s |
-| 17 | `mistralai/mistral-medium-3.5-128b` | 0.67 | 8.29s |
-| 18 | `sarvamai/sarvam-m` | 0.67 | 13.32s |
-| 19 | `nvidia/ising-calibration-1-35b-a3b` | 0.67 | 13.96s |
-| 20 | `qwen/qwen3.5-122b-a10b` | 0.33 | 2.76s |
-| 21 | `stepfun-ai/step-3.7-flash` | 0.33 | 10.52s |
-| 22 | `mistralai/mistral-large-3-675b-instruct-2512` | 0.33 | 10.93s |
-| 23 | `mistralai/mixtral-8x7b-instruct-v0.1` | 0.33 | 13.53s |
-| 24 | `nvidia/llama-3.3-nemotron-super-49b-v1.5` | 0.33 | 14.47s |
-| 25 | `google/gemma-4-31b-it` | 0.00 | 0.00s |
-| 26 | `meta/llama-3.1-8b-instruct` | 0.00 | 0.00s |
-| 27 | `meta/llama-3.1-70b-instruct` | 0.00 | 0.00s |
-| 28 | `meta/llama-3.2-11b-vision-instruct` | 0.00 | 0.00s |
-| 29 | `meta/llama-3.2-3b-instruct` | 0.00 | 0.00s |
-| 30 | `google/gemma-2-2b-it` | 0.00 | 0.00s |
-| 31 | `google/gemma-3n-e2b-it` | 0.00 | 0.00s |
-| 32 | `google/diffusiongemma-26b-a4b-it` | 0.00 | 0.00s |
-| 33 | `minimaxai/minimax-m3` | 0.00 | 0.23s |
-| 34 | `nvidia/llama-3.1-nemoguard-8b-topic-control` | 0.00 | 0.40s |
-| 35 | `nvidia/gliner-pii` | 0.00 | 0.44s |
-| 36 | `nvidia/nemotron-3.5-content-safety` | 0.00 | 0.51s |
-| 37 | `nvidia/nemotron-3-content-safety` | 0.00 | 0.53s |
-| 38 | `nvidia/llama-3.1-nemotron-safety-guard-8b-v3` | 0.00 | 0.60s |
-| 39 | `meta/llama-guard-4-12b` | 0.00 | 0.74s |
-| 40 | `nvidia/riva-translate-4b-instruct-v1.1` | 0.00 | 1.10s |
-| 41 | `nvidia/llama-3.1-nemoguard-8b-content-safety` | 0.00 | 3.77s |
-| 42 | `z-ai/glm-5.1` | 0.00 | 15.13s |
-| 43 | `nvidia/nvidia-nemotron-nano-9b-v2` | 0.00 | 15.14s |
-| 44 | `meta/llama-3.3-70b-instruct` | 0.00 | 15.15s |
-| 45 | `minimaxai/minimax-m2.7` | 0.00 | 15.15s |
-| 46 | `bytedance/seed-oss-36b-instruct` | 0.00 | 15.17s |
-| 47 | `deepseek-ai/deepseek-v4-flash` | 0.00 | 15.20s |
-| 48 | `openai/gpt-oss-20b` | 0.00 | 15.20s |
-| 49 | `meta/llama-3.2-90b-vision-instruct` | 0.00 | 15.31s |
-| 50 | `abacusai/dracarys-llama-3.1-70b-instruct` | 0.00 | 17.31s |
+| 1 | `nvidia/nemotron-3-nano-30b-a3b` | 1.00 | 0.95s |
+| 2 | `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` | 1.00 | 1.66s |
+| 3 | `openai/gpt-oss-20b` | 1.00 | 2.06s |
+| 4 | `meta/llama-3.1-8b-instruct` | 1.00 | 2.27s |
+| 5 | `mistralai/mistral-small-4-119b-2603` | 1.00 | 2.54s |
+| 6 | `nvidia/ising-calibration-1-35b-a3b` | 1.00 | 3.52s |
+| 7 | `meta/llama-4-maverick-17b-128e-instruct` | 1.00 | 5.07s |
+| 8 | `google/gemma-3n-e2b-it` | 1.00 | 6.97s |
+| 9 | `mistralai/mistral-large-3-675b-instruct-2512` | 1.00 | 7.33s |
+| 10 | `qwen/qwen3-next-80b-a3b-instruct` | 1.00 | 8.81s |
+| 11 | `mistralai/mistral-medium-3.5-128b` | 1.00 | 8.93s |
+| 12 | `mistralai/ministral-14b-instruct-2512` | 1.00 | 11.48s |
+| 13 | `nvidia/nvidia-nemotron-nano-9b-v2` | 1.00 | 12.66s |
+| 14 | `nvidia/nemotron-3-super-120b-a12b` | 1.00 | 14.01s |
+| 15 | `stepfun-ai/step-3.5-flash` | 1.00 | 14.97s |
+| 16 | `abacusai/dracarys-llama-3.1-70b-instruct` | 1.00 | 15.88s |
+| 17 | `mistralai/mixtral-8x7b-instruct-v0.1` | 1.00 | 16.09s |
+| 18 | `minimaxai/minimax-m2.7` | 1.00 | 28.14s |
+| 19 | `meta/llama-3.2-90b-vision-instruct` | 1.00 | 38.58s |
+| 20 | `google/diffusiongemma-26b-a4b-it` | 0.67 | 0.58s |
+| 21 | `nvidia/nemotron-mini-4b-instruct` | 0.67 | 2.24s |
+| 22 | `meta/llama-3.2-3b-instruct` | 0.67 | 2.50s |
+| 23 | `upstage/solar-10.7b-instruct` | 0.67 | 4.34s |
+| 24 | `stockmark/stockmark-2-100b-instruct` | 0.67 | 6.78s |
+| 25 | `nvidia/llama-3.1-nemotron-nano-vl-8b-v1` | 0.67 | 11.84s |
+| 26 | `sarvamai/sarvam-m` | 0.67 | 22.94s |
+| 27 | `nvidia/nemotron-content-safety-reasoning-4b` | 0.67 | 41.93s |
+| 28 | `stepfun-ai/step-3.7-flash` | 0.67 | 49.41s |
+| 29 | `z-ai/glm-5.1` | 0.67 | 55.10s |
+| 30 | `nvidia/llama-3.3-nemotron-super-49b-v1.5` | 0.67 | 55.63s |
+| 31 | `mistralai/mistral-nemotron` | 0.33 | 1.38s |
+| 32 | `nvidia/nemotron-nano-12b-v2-vl` | 0.33 | 4.86s |
+| 33 | `qwen/qwen3.5-122b-a10b` | 0.33 | 6.27s |
+| 34 | `google/gemma-4-31b-it` | 0.33 | 83.89s |
+| 35 | `meta/llama-3.2-11b-vision-instruct` | 0.33 | 93.78s |
+| 36 | `bytedance/seed-oss-36b-instruct` | 0.00 | 0.17s |
+| 37 | `nvidia/llama-3.1-nemoguard-8b-topic-control` | 0.00 | 0.35s |
+| 38 | `meta/llama-guard-4-12b` | 0.00 | 0.40s |
+| 39 | `nvidia/nemotron-3.5-content-safety` | 0.00 | 0.42s |
+| 40 | `nvidia/nemotron-3-content-safety` | 0.00 | 0.46s |
+| 41 | `nvidia/gliner-pii` | 0.00 | 0.47s |
+| 42 | `nvidia/llama-3.1-nemotron-safety-guard-8b-v3` | 0.00 | 0.50s |
+| 43 | `nvidia/riva-translate-4b-instruct-v1.1` | 0.00 | 1.05s |
+| 44 | `google/gemma-2-2b-it` | 0.00 | 1.42s |
+| 45 | `minimaxai/minimax-m3` | 0.00 | 2.03s |
+| 46 | `nvidia/llama-3.1-nemoguard-8b-content-safety` | 0.00 | 2.24s |
+| 47 | `moonshotai/kimi-k2.6` | 0.00 | 69.85s |
+| 48 | `meta/llama-3.3-70b-instruct` | 0.00 | 120.12s |
+| 49 | `deepseek-ai/deepseek-v4-flash` | 0.00 | 120.13s |
+| 50 | `meta/llama-3.1-70b-instruct` | 0.00 | 120.14s |
 
 ### Writing Benchmark (Task Fit & Speed)
 
 | Rank | Supported Models | Score (Task Fit) | Avg Latency (Speed) |
 | :--- | :--- | :--- | :--- |
-| 1 | `qwen/qwen3.5-122b-a10b` | 1.00 | 0.89s |
-| 2 | `meta/llama-4-maverick-17b-128e-instruct` | 1.00 | 0.90s |
-| 3 | `nvidia/nemotron-content-safety-reasoning-4b` | 1.00 | 1.11s |
-| 4 | `mistralai/mistral-small-4-119b-2603` | 1.00 | 1.14s |
-| 5 | `qwen/qwen3-next-80b-a3b-instruct` | 1.00 | 1.57s |
-| 6 | `mistralai/mistral-large-3-675b-instruct-2512` | 1.00 | 1.58s |
-| 7 | `mistralai/ministral-14b-instruct-2512` | 1.00 | 1.58s |
-| 8 | `mistralai/mistral-nemotron` | 1.00 | 1.75s |
-| 9 | `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` | 1.00 | 2.80s |
-| 10 | `nvidia/nemotron-3-super-120b-a12b` | 1.00 | 4.46s |
-| 11 | `nvidia/nemotron-3-nano-30b-a3b` | 1.00 | 4.82s |
-| 12 | `nvidia/gliner-pii` | 0.50 | 0.46s |
-| 13 | `nvidia/llama-3.1-nemotron-nano-vl-8b-v1` | 0.50 | 1.72s |
-| 14 | `nvidia/nemotron-nano-12b-v2-vl` | 0.50 | 1.73s |
-| 15 | `stockmark/stockmark-2-100b-instruct` | 0.50 | 2.54s |
-| 16 | `upstage/solar-10.7b-instruct` | 0.50 | 2.54s |
-| 17 | `nvidia/nvidia-nemotron-nano-9b-v2` | 0.50 | 6.92s |
-| 18 | `mistralai/mixtral-8x7b-instruct-v0.1` | 0.50 | 8.09s |
-| 19 | `mistralai/mistral-medium-3.5-128b` | 0.50 | 8.17s |
-| 20 | `abacusai/dracarys-llama-3.1-70b-instruct` | 0.50 | 9.86s |
-| 21 | `sarvamai/sarvam-m` | 0.50 | 11.01s |
-| 22 | `moonshotai/kimi-k2.6` | 0.50 | 11.57s |
-| 23 | `nvidia/llama-3.3-nemotron-super-49b-v1.5` | 0.50 | 12.25s |
-| 24 | `openai/gpt-oss-20b` | 0.50 | 14.20s |
-| 25 | `google/gemma-4-31b-it` | 0.00 | 0.00s |
-| 26 | `meta/llama-3.1-70b-instruct` | 0.00 | 0.00s |
-| 27 | `meta/llama-3.1-8b-instruct` | 0.00 | 0.00s |
-| 28 | `google/gemma-2-2b-it` | 0.00 | 0.00s |
-| 29 | `google/diffusiongemma-26b-a4b-it` | 0.00 | 0.00s |
-| 30 | `google/gemma-3n-e2b-it` | 0.00 | 0.00s |
-| 31 | `meta/llama-3.2-3b-instruct` | 0.00 | 0.00s |
-| 32 | `meta/llama-3.2-11b-vision-instruct` | 0.00 | 0.01s |
-| 33 | `minimaxai/minimax-m3` | 0.00 | 0.19s |
-| 34 | `nvidia/llama-3.1-nemoguard-8b-topic-control` | 0.00 | 0.40s |
-| 35 | `nvidia/nemotron-3.5-content-safety` | 0.00 | 0.45s |
-| 36 | `meta/llama-guard-4-12b` | 0.00 | 0.46s |
-| 37 | `nvidia/nemotron-3-content-safety` | 0.00 | 0.53s |
-| 38 | `nvidia/llama-3.1-nemoguard-8b-content-safety` | 0.00 | 0.53s |
-| 39 | `nvidia/llama-3.1-nemotron-safety-guard-8b-v3` | 0.00 | 0.77s |
-| 40 | `nvidia/nemotron-mini-4b-instruct` | 0.00 | 1.06s |
-| 41 | `nvidia/riva-translate-4b-instruct-v1.1` | 0.00 | 1.46s |
-| 42 | `stepfun-ai/step-3.7-flash` | 0.00 | 15.13s |
-| 43 | `meta/llama-3.3-70b-instruct` | 0.00 | 15.15s |
-| 44 | `z-ai/glm-5.1` | 0.00 | 15.15s |
-| 45 | `meta/llama-3.2-90b-vision-instruct` | 0.00 | 15.15s |
-| 46 | `nvidia/ising-calibration-1-35b-a3b` | 0.00 | 15.16s |
-| 47 | `deepseek-ai/deepseek-v4-flash` | 0.00 | 15.16s |
-| 48 | `minimaxai/minimax-m2.7` | 0.00 | 15.17s |
-| 49 | `bytedance/seed-oss-36b-instruct` | 0.00 | 15.24s |
-| 50 | `stepfun-ai/step-3.5-flash` | 0.00 | 15.24s |
+| 1 | `google/diffusiongemma-26b-a4b-it` | 1.00 | 0.47s |
+| 2 | `mistralai/mistral-small-4-119b-2603` | 1.00 | 0.62s |
+| 3 | `meta/llama-3.1-8b-instruct` | 1.00 | 0.71s |
+| 4 | `google/gemma-2-2b-it` | 1.00 | 0.81s |
+| 5 | `meta/llama-4-maverick-17b-128e-instruct` | 1.00 | 0.94s |
+| 6 | `mistralai/mistral-large-3-675b-instruct-2512` | 1.00 | 1.02s |
+| 7 | `nvidia/nemotron-content-safety-reasoning-4b` | 1.00 | 1.05s |
+| 8 | `meta/llama-3.2-3b-instruct` | 1.00 | 1.17s |
+| 9 | `mistralai/mistral-nemotron` | 1.00 | 1.38s |
+| 10 | `nvidia/nemotron-nano-12b-v2-vl` | 1.00 | 1.94s |
+| 11 | `meta/llama-3.2-11b-vision-instruct` | 1.00 | 1.95s |
+| 12 | `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` | 1.00 | 1.95s |
+| 13 | `qwen/qwen3-next-80b-a3b-instruct` | 1.00 | 2.05s |
+| 14 | `openai/gpt-oss-20b` | 1.00 | 3.09s |
+| 15 | `nvidia/nemotron-3-nano-30b-a3b` | 1.00 | 3.33s |
+| 16 | `abacusai/dracarys-llama-3.1-70b-instruct` | 1.00 | 4.19s |
+| 17 | `mistralai/ministral-14b-instruct-2512` | 1.00 | 4.25s |
+| 18 | `nvidia/nemotron-mini-4b-instruct` | 1.00 | 6.62s |
+| 19 | `nvidia/nemotron-3-super-120b-a12b` | 1.00 | 6.69s |
+| 20 | `meta/llama-3.2-90b-vision-instruct` | 1.00 | 10.32s |
+| 21 | `nvidia/llama-3.3-nemotron-super-49b-v1.5` | 1.00 | 17.12s |
+| 22 | `nvidia/ising-calibration-1-35b-a3b` | 1.00 | 19.35s |
+| 23 | `stepfun-ai/step-3.5-flash` | 1.00 | 30.29s |
+| 24 | `minimaxai/minimax-m2.7` | 1.00 | 40.40s |
+| 25 | `qwen/qwen3.5-122b-a10b` | 1.00 | 40.55s |
+| 26 | `z-ai/glm-5.1` | 1.00 | 48.58s |
+| 27 | `nvidia/riva-translate-4b-instruct-v1.1` | 0.50 | 1.82s |
+| 28 | `stockmark/stockmark-2-100b-instruct` | 0.50 | 2.18s |
+| 29 | `nvidia/llama-3.1-nemotron-nano-vl-8b-v1` | 0.50 | 2.20s |
+| 30 | `upstage/solar-10.7b-instruct` | 0.50 | 2.51s |
+| 31 | `google/gemma-3n-e2b-it` | 0.50 | 2.66s |
+| 32 | `mistralai/mistral-medium-3.5-128b` | 0.50 | 3.00s |
+| 33 | `nvidia/nvidia-nemotron-nano-9b-v2` | 0.50 | 4.23s |
+| 34 | `mistralai/mixtral-8x7b-instruct-v0.1` | 0.50 | 9.73s |
+| 35 | `sarvamai/sarvam-m` | 0.50 | 23.60s |
+| 36 | `stepfun-ai/step-3.7-flash` | 0.50 | 96.10s |
+| 37 | `bytedance/seed-oss-36b-instruct` | 0.00 | 0.15s |
+| 38 | `nvidia/llama-3.1-nemoguard-8b-topic-control` | 0.00 | 0.33s |
+| 39 | `meta/llama-guard-4-12b` | 0.00 | 0.38s |
+| 40 | `nvidia/nemotron-3.5-content-safety` | 0.00 | 0.45s |
+| 41 | `nvidia/nemotron-3-content-safety` | 0.00 | 0.48s |
+| 42 | `nvidia/llama-3.1-nemotron-safety-guard-8b-v3` | 0.00 | 0.50s |
+| 43 | `nvidia/gliner-pii` | 0.00 | 2.86s |
+| 44 | `minimaxai/minimax-m3` | 0.00 | 2.89s |
+| 45 | `nvidia/llama-3.1-nemoguard-8b-content-safety` | 0.00 | 3.11s |
+| 46 | `moonshotai/kimi-k2.6` | 0.00 | 65.87s |
+| 47 | `meta/llama-3.1-70b-instruct` | 0.00 | 120.12s |
+| 48 | `deepseek-ai/deepseek-v4-flash` | 0.00 | 120.13s |
+| 49 | `meta/llama-3.3-70b-instruct` | 0.00 | 120.14s |
+| 50 | `google/gemma-4-31b-it` | 0.00 | 120.15s |
 
 ### Tool Calling Benchmark (Task Fit & Speed)
 
 | Rank | Supported Models | Score (Task Fit) | Avg Latency (Speed) |
 | :--- | :--- | :--- | :--- |
-| 1 | `mistralai/mistral-small-4-119b-2603` | 1.00 | 0.80s |
-| 2 | `mistralai/mistral-nemotron` | 1.00 | 0.86s |
-| 3 | `mistralai/ministral-14b-instruct-2512` | 1.00 | 0.91s |
-| 4 | `mistralai/mistral-medium-3.5-128b` | 1.00 | 0.97s |
-| 5 | `qwen/qwen3.5-122b-a10b` | 1.00 | 1.19s |
-| 6 | `mistralai/mistral-large-3-675b-instruct-2512` | 1.00 | 1.39s |
-| 7 | `nvidia/nemotron-nano-12b-v2-vl` | 1.00 | 1.44s |
-| 8 | `qwen/qwen3-next-80b-a3b-instruct` | 1.00 | 1.66s |
-| 9 | `stepfun-ai/step-3.5-flash` | 1.00 | 1.95s |
-| 10 | `nvidia/nemotron-3-nano-30b-a3b` | 1.00 | 2.18s |
-| 11 | `nvidia/ising-calibration-1-35b-a3b` | 1.00 | 2.69s |
-| 12 | `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` | 1.00 | 3.17s |
-| 13 | `nvidia/nvidia-nemotron-nano-9b-v2` | 1.00 | 6.70s |
-| 14 | `nvidia/llama-3.3-nemotron-super-49b-v1.5` | 1.00 | 6.78s |
-| 15 | `stepfun-ai/step-3.7-flash` | 1.00 | 7.95s |
-| 16 | `nvidia/nemotron-3-super-120b-a12b` | 0.50 | 3.02s |
-| 17 | `nvidia/nemotron-mini-4b-instruct` | 0.50 | 13.46s |
-| 18 | `google/gemma-4-31b-it` | 0.00 | 0.00s |
-| 19 | `meta/llama-3.1-70b-instruct` | 0.00 | 0.00s |
-| 20 | `meta/llama-3.2-3b-instruct` | 0.00 | 0.00s |
-| 21 | `meta/llama-3.1-8b-instruct` | 0.00 | 0.00s |
-| 22 | `meta/llama-3.2-11b-vision-instruct` | 0.00 | 0.00s |
-| 23 | `google/gemma-3n-e2b-it` | 0.00 | 0.00s |
-| 24 | `google/diffusiongemma-26b-a4b-it` | 0.00 | 0.01s |
-| 25 | `google/gemma-2-2b-it` | 0.00 | 0.06s |
-| 26 | `minimaxai/minimax-m3` | 0.00 | 0.23s |
-| 27 | `nvidia/riva-translate-4b-instruct-v1.1` | 0.00 | 0.33s |
-| 28 | `nvidia/llama-3.1-nemotron-nano-vl-8b-v1` | 0.00 | 0.34s |
-| 29 | `mistralai/mixtral-8x7b-instruct-v0.1` | 0.00 | 0.34s |
-| 30 | `nvidia/llama-3.1-nemotron-safety-guard-8b-v3` | 0.00 | 0.35s |
-| 31 | `stockmark/stockmark-2-100b-instruct` | 0.00 | 0.36s |
-| 32 | `nvidia/gliner-pii` | 0.00 | 0.37s |
-| 33 | `nvidia/llama-3.1-nemoguard-8b-topic-control` | 0.00 | 0.38s |
-| 34 | `meta/llama-guard-4-12b` | 0.00 | 0.39s |
-| 35 | `nvidia/llama-3.1-nemoguard-8b-content-safety` | 0.00 | 0.39s |
-| 36 | `nvidia/nemotron-3-content-safety` | 0.00 | 0.41s |
-| 37 | `nvidia/nemotron-3.5-content-safety` | 0.00 | 0.42s |
-| 38 | `nvidia/nemotron-content-safety-reasoning-4b` | 0.00 | 0.46s |
-| 39 | `sarvamai/sarvam-m` | 0.00 | 0.51s |
-| 40 | `meta/llama-4-maverick-17b-128e-instruct` | 0.00 | 0.81s |
-| 41 | `upstage/solar-10.7b-instruct` | 0.00 | 5.02s |
-| 42 | `moonshotai/kimi-k2.6` | 0.00 | 9.08s |
-| 43 | `openai/gpt-oss-20b` | 0.00 | 9.66s |
-| 44 | `z-ai/glm-5.1` | 0.00 | 15.11s |
-| 45 | `meta/llama-3.3-70b-instruct` | 0.00 | 15.12s |
-| 46 | `meta/llama-3.2-90b-vision-instruct` | 0.00 | 15.14s |
-| 47 | `minimaxai/minimax-m2.7` | 0.00 | 15.14s |
-| 48 | `bytedance/seed-oss-36b-instruct` | 0.00 | 15.16s |
-| 49 | `abacusai/dracarys-llama-3.1-70b-instruct` | 0.00 | 15.19s |
-| 50 | `deepseek-ai/deepseek-v4-flash` | 0.00 | 23.28s |
+| 1 | `mistralai/mistral-small-4-119b-2603` | 1.00 | 0.54s |
+| 2 | `google/diffusiongemma-26b-a4b-it` | 1.00 | 0.57s |
+| 3 | `meta/llama-3.1-8b-instruct` | 1.00 | 0.61s |
+| 4 | `mistralai/ministral-14b-instruct-2512` | 1.00 | 0.65s |
+| 5 | `mistralai/mistral-large-3-675b-instruct-2512` | 1.00 | 0.76s |
+| 6 | `mistralai/mistral-nemotron` | 1.00 | 1.00s |
+| 7 | `nvidia/ising-calibration-1-35b-a3b` | 1.00 | 1.22s |
+| 8 | `meta/llama-3.2-11b-vision-instruct` | 1.00 | 1.37s |
+| 9 | `nvidia/nemotron-nano-12b-v2-vl` | 1.00 | 1.74s |
+| 10 | `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` | 1.00 | 2.38s |
+| 11 | `qwen/qwen3-next-80b-a3b-instruct` | 1.00 | 2.69s |
+| 12 | `stepfun-ai/step-3.7-flash` | 1.00 | 3.21s |
+| 13 | `nvidia/nemotron-3-nano-30b-a3b` | 1.00 | 5.03s |
+| 14 | `nvidia/nvidia-nemotron-nano-9b-v2` | 1.00 | 5.52s |
+| 15 | `meta/llama-3.2-90b-vision-instruct` | 1.00 | 7.15s |
+| 16 | `stepfun-ai/step-3.5-flash` | 1.00 | 8.23s |
+| 17 | `nvidia/llama-3.3-nemotron-super-49b-v1.5` | 1.00 | 11.28s |
+| 18 | `qwen/qwen3.5-122b-a10b` | 1.00 | 15.78s |
+| 19 | `minimaxai/minimax-m2.7` | 1.00 | 37.89s |
+| 20 | `z-ai/glm-5.1` | 1.00 | 44.50s |
+| 21 | `nvidia/nemotron-3-super-120b-a12b` | 0.50 | 1.77s |
+| 22 | `mistralai/mistral-medium-3.5-128b` | 0.50 | 3.06s |
+| 23 | `nvidia/nemotron-mini-4b-instruct` | 0.50 | 13.12s |
+| 24 | `moonshotai/kimi-k2.6` | 0.50 | 15.66s |
+| 25 | `openai/gpt-oss-20b` | 0.50 | 17.26s |
+| 26 | `google/gemma-4-31b-it` | 0.50 | 113.60s |
+| 27 | `bytedance/seed-oss-36b-instruct` | 0.00 | 0.16s |
+| 28 | `google/gemma-3n-e2b-it` | 0.00 | 0.29s |
+| 29 | `stockmark/stockmark-2-100b-instruct` | 0.00 | 0.29s |
+| 30 | `nvidia/nemotron-content-safety-reasoning-4b` | 0.00 | 0.29s |
+| 31 | `nvidia/riva-translate-4b-instruct-v1.1` | 0.00 | 0.30s |
+| 32 | `mistralai/mixtral-8x7b-instruct-v0.1` | 0.00 | 0.30s |
+| 33 | `nvidia/llama-3.1-nemoguard-8b-topic-control` | 0.00 | 0.30s |
+| 34 | `nvidia/llama-3.1-nemoguard-8b-content-safety` | 0.00 | 0.31s |
+| 35 | `google/gemma-2-2b-it` | 0.00 | 0.31s |
+| 36 | `meta/llama-guard-4-12b` | 0.00 | 0.32s |
+| 37 | `nvidia/nemotron-3.5-content-safety` | 0.00 | 0.40s |
+| 38 | `sarvamai/sarvam-m` | 0.00 | 0.44s |
+| 39 | `minimaxai/minimax-m3` | 0.00 | 0.45s |
+| 40 | `nvidia/llama-3.1-nemotron-safety-guard-8b-v3` | 0.00 | 0.54s |
+| 41 | `nvidia/llama-3.1-nemotron-nano-vl-8b-v1` | 0.00 | 0.57s |
+| 42 | `nvidia/nemotron-3-content-safety` | 0.00 | 0.63s |
+| 43 | `meta/llama-4-maverick-17b-128e-instruct` | 0.00 | 0.83s |
+| 44 | `meta/llama-3.2-3b-instruct` | 0.00 | 2.05s |
+| 45 | `nvidia/gliner-pii` | 0.00 | 2.72s |
+| 46 | `upstage/solar-10.7b-instruct` | 0.00 | 5.15s |
+| 47 | `meta/llama-3.1-70b-instruct` | 0.00 | 64.25s |
+| 48 | `abacusai/dracarys-llama-3.1-70b-instruct` | 0.00 | 67.15s |
+| 49 | `deepseek-ai/deepseek-v4-flash` | 0.00 | 120.10s |
+| 50 | `meta/llama-3.3-70b-instruct` | 0.00 | 120.12s |
 
 <!-- BENCHMARK_END -->
 
 ---
+
+## 🟢 Active & Working Models Catalog
+
+<!-- ALIVE_MODELS_START -->
+The following **50 models** are probed and verified as actively responding on the NVIDIA NIM free-tier:
+
+<details>
+<summary><b>Click to expand full list of active models (50)</b></summary>
+
+*   `abacusai/dracarys-llama-3.1-70b-instruct`
+*   `bytedance/seed-oss-36b-instruct`
+*   `deepseek-ai/deepseek-v4-flash`
+*   `google/diffusiongemma-26b-a4b-it`
+*   `google/gemma-2-2b-it`
+*   `google/gemma-3n-e2b-it`
+*   `google/gemma-4-31b-it`
+*   `meta/llama-3.1-70b-instruct`
+*   `meta/llama-3.1-8b-instruct`
+*   `meta/llama-3.2-11b-vision-instruct`
+*   `meta/llama-3.2-3b-instruct`
+*   `meta/llama-3.2-90b-vision-instruct`
+*   `meta/llama-3.3-70b-instruct`
+*   `meta/llama-4-maverick-17b-128e-instruct`
+*   `meta/llama-guard-4-12b` *(moderation only)*
+*   `minimaxai/minimax-m2.7`
+*   `minimaxai/minimax-m3`
+*   `mistralai/ministral-14b-instruct-2512`
+*   `mistralai/mistral-large-3-675b-instruct-2512`
+*   `mistralai/mistral-medium-3.5-128b`
+*   `mistralai/mistral-nemotron`
+*   `mistralai/mistral-small-4-119b-2603`
+*   `mistralai/mixtral-8x7b-instruct-v0.1`
+*   `moonshotai/kimi-k2.6`
+*   `nvidia/gliner-pii` *(specialized task)*
+*   `nvidia/ising-calibration-1-35b-a3b`
+*   `nvidia/llama-3.1-nemoguard-8b-content-safety` *(moderation only)*
+*   `nvidia/llama-3.1-nemoguard-8b-topic-control` *(moderation only)*
+*   `nvidia/llama-3.1-nemotron-nano-vl-8b-v1`
+*   `nvidia/llama-3.1-nemotron-safety-guard-8b-v3` *(moderation only)*
+*   `nvidia/llama-3.3-nemotron-super-49b-v1.5`
+*   `nvidia/nemotron-3-content-safety` *(moderation only)*
+*   `nvidia/nemotron-3-nano-30b-a3b`
+*   `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning`
+*   `nvidia/nemotron-3-super-120b-a12b`
+*   `nvidia/nemotron-3.5-content-safety` *(moderation only)*
+*   `nvidia/nemotron-content-safety-reasoning-4b` *(moderation only)*
+*   `nvidia/nemotron-mini-4b-instruct`
+*   `nvidia/nemotron-nano-12b-v2-vl`
+*   `nvidia/nvidia-nemotron-nano-9b-v2`
+*   `nvidia/riva-translate-4b-instruct-v1.1` *(translation only)*
+*   `openai/gpt-oss-20b`
+*   `qwen/qwen3-next-80b-a3b-instruct`
+*   `qwen/qwen3.5-122b-a10b`
+*   `sarvamai/sarvam-m`
+*   `stepfun-ai/step-3.5-flash`
+*   `stepfun-ai/step-3.7-flash`
+*   `stockmark/stockmark-2-100b-instruct`
+*   `upstage/solar-10.7b-instruct`
+*   `z-ai/glm-5.1`
+
+</details>
+<!-- ALIVE_MODELS_END -->
+
+---
+
+## 💡 Model Recommendations & Fitness Guide
+
+<!-- RECOMMENDATIONS_START -->
+Based on the latest evaluation data, different models exhibit distinct strengths. Use this guide to select the best model for your workload:
+
+| Category | Recommended Model | Best Accuracy | Typical Latency | Suitability Notes |
+| :--- | :--- | :---: | :---: | :--- |
+| **💻 Coding** | `mistralai/mistral-small-4-119b-2603`<br>`meta/llama-3.1-8b-instruct` | **1.00** | **~1.37s** | Excellent instruction-following, outputs code cleanly inside blocks, and correctly solves programming test cases. |
+| **🧮 Math & Logic** | `nvidia/nemotron-3-nano-30b-a3b`<br>`nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` | **1.00** | **~0.95s** | Strong reasoning abilities for seating constraints, logic puzzles, and quadratic equation derivations. |
+| **✍️ General Writing** | `google/diffusiongemma-26b-a4b-it`<br>`mistralai/mistral-small-4-119b-2603` | **1.00** | **~0.47s** | Adheres strictly to word count bounds and list bullet formats with minimal latency. |
+| **🔌 Tool Calling** | `mistralai/mistral-small-4-119b-2603`<br>`google/diffusiongemma-26b-a4b-it` | **1.00** | **~0.54s** | Natively triggers functional tools with correct parameter names and values. |
+
+### ⚠️ Important Usage Warnings
+- **Avoid Moderation Models for Tasks**: Do not route general coding, writing, or math queries to `llama-guard-4-12b` or any `content-safety` / `safety-guard` model. They only output safety classifications and will score 0 on general benchmarks.
+- **Vision-Instruct Latency spikes**: `meta/llama-3.2-11b-vision-instruct` performs well but can suffer from severe response delays under queue load.
+- **Specialized Domain Models**: Models like `nvidia/riva-translate` (translation only) and `nvidia/gliner-pii` (entity masking only) should not be used for generic chat or reasoning.
+<!-- RECOMMENDATIONS_END -->
 
 ## 🚀 Architecture & How It Works
 
