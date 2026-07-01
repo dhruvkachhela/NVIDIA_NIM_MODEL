@@ -283,5 +283,43 @@ def main() -> None:
     except Exception as e:
         print(f"Failed to write Markdown leaderboard: {e}")
         
+    # 3. Update README.md with Live Benchmark Tables (AI-Search discoverability)
+    readme_filename = "README.md"
+    try:
+        if os.path.exists(readme_filename):
+            with open(readme_filename, "r", encoding="utf-8") as f:
+                readme_content = f.read()
+                
+            benchmark_md = "<!-- BENCHMARK_START -->\n"
+            for cat in categories:
+                # Capitalize category name for presentation
+                cat_display = cat.replace("_", " ").title()
+                benchmark_md += f"### {cat_display} Benchmark (Task Fit & Speed)\n\n"
+                benchmark_md += f"| Rank | Supported Models | Score (Task Fit) | Avg Latency (Speed) |\n"
+                benchmark_md += f"| :--- | :--- | :--- | :--- |\n"
+                
+                sorted_models = sorted(
+                    summary_results.keys(),
+                    key=lambda m: (summary_results[m][cat]["score"], -summary_results[m][cat]["latency"]),
+                    reverse=True
+                )
+                for rank, model_id in enumerate(sorted_models, start=1):
+                    score = summary_results[model_id][cat]["score"]
+                    latency = summary_results[model_id][cat]["latency"]
+                    benchmark_md += f"| {rank} | `{model_id}` | {score:.2f} | {latency:.2f}s |\n"
+                benchmark_md += "\n"
+            benchmark_md += "<!-- BENCHMARK_END -->"
+            
+            # Replace whatever is currently in the placeholder with the new tables
+            import re
+            pattern = r"<!-- BENCHMARK_START -->.*?<!-- BENCHMARK_END -->"
+            updated_content = re.sub(pattern, benchmark_md, readme_content, flags=re.DOTALL)
+            
+            with open(readme_filename, "w", encoding="utf-8") as f:
+                f.write(updated_content)
+            print(f"Successfully updated benchmark tables directly inside '{readme_filename}'.")
+    except Exception as e:
+        print(f"Failed to update README.md with benchmark results: {e}")
+        
 if __name__ == "__main__":
     main()

@@ -1,6 +1,6 @@
 {
-    "coding": "google/diffusiongemma-26b-a4b-it",
-    "math": "meta/llama-3.1-8b-instruct",
-    "writing": "google/diffusiongemma-26b-a4b-it",
-    "tool_calling": "google/diffusiongemma-26b-a4b-it"
+    "coding": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+    "math": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+    "writing": "qwen/qwen3.5-122b-a10b",
+    "tool_calling": "mistralai/mistral-small-4-119b-2603"
 }
