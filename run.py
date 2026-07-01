@@ -239,5 +239,49 @@ def main() -> None:
     for cat, model in router_config.items():
         print(f"  - {cat:<13} -> {model}")
         
+    # --- Generate CSV and Markdown Leaderboards for AI Search Compatibility ---
+    import csv
+    
+    # 1. Export to results.csv
+    csv_filename = "results.csv"
+    try:
+        with open(csv_filename, "w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Model", "Category", "Score", "Latency"])
+            for model_id, cat_data in summary_results.items():
+                for cat, stats in cat_data.items():
+                    # Format float values to 4 decimal places for CSV precision
+                    writer.writerow([model_id, cat, f"{stats['score']:.4f}", f"{stats['latency']:.4f}"])
+        print(f"Successfully wrote CSV results to '{csv_filename}'.")
+    except Exception as e:
+        print(f"Failed to write CSV results: {e}")
+
+    # 2. Export to leaderboard.md
+    md_filename = "leaderboard.md"
+    try:
+        with open(md_filename, "w", encoding="utf-8") as f:
+            f.write("# NVIDIA NIM Evaluation Leaderboard\n\n")
+            f.write("Created and Maintained by **[dhruvkachhela](https://github.com/dhruvkachhela)**.\n\n")
+            f.write("This table is automatically updated by the automated weekly cron job. It displays performance ratings and latencies for all active models across various tasks.\n\n")
+            
+            for cat in categories:
+                f.write(f"## {cat.capitalize()} Leaderboard\n\n")
+                f.write("| Rank | Model Name | Score | Avg Latency |\n")
+                f.write("| :--- | :--- | :--- | :--- |\n")
+                
+                sorted_models = sorted(
+                    summary_results.keys(),
+                    key=lambda m: (summary_results[m][cat]["score"], -summary_results[m][cat]["latency"]),
+                    reverse=True
+                )
+                for rank, model_id in enumerate(sorted_models, start=1):
+                    score = summary_results[model_id][cat]["score"]
+                    latency = summary_results[model_id][cat]["latency"]
+                    f.write(f"| {rank} | `{model_id}` | {score:.2f} | {latency:.2f}s |\n")
+                f.write("\n")
+        print(f"Successfully wrote Markdown leaderboard to '{md_filename}'.")
+    except Exception as e:
+        print(f"Failed to write Markdown leaderboard: {e}")
+        
 if __name__ == "__main__":
     main()

@@ -1,0 +1,6 @@
+{
+    "coding": "google/diffusiongemma-26b-a4b-it",
+    "math": "meta/llama-3.1-8b-instruct",
+    "writing": "google/diffusiongemma-26b-a4b-it",
+    "tool_calling": "google/diffusiongemma-26b-a4b-it"
+}

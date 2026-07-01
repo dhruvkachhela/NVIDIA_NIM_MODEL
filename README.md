@@ -31,9 +31,9 @@ graph TD
    - **Writing**: Paragraph summarization (verifying key term presence) and strict format adherence (exact bullet counts and word limits).
    - **Tool Calling**: Single tool and sequential tool-calling requests (passing tool definitions in standard OpenAI format).
 3. **Phase 3: Scoring and Ranking (`grade.py` & `run.py`)**
-   Runs all 11 tasks against the active models, using precise programmatic grading functions (running python code against tests, checking strings/keywords, parsing math numbers) to grade output correctness.
+   Runs all 11 tasks against the active models, using precise programmatic grading functions (running python code against tests, checking strings/keywords, parsing math numbers) to grade output correctness. It saves raw data to `results.json`, exports a machine-readable `results.csv`, and generates a beautifully formatted `leaderboard.md` for AI search accessibility.
 4. **Phase 4: Automation**
-   A GitHub Actions workflow (`.github/workflows/nim_eval_cron.yml`) is scheduled to run on a weekly cron job. It runs the evaluation pipeline and pushes updated output files back to the repository.
+   A GitHub Actions workflow (`.github/workflows/nim_eval_cron.yml`) is scheduled to run on a weekly cron job. It runs the evaluation pipeline and pushes updated output files (`alive_models.json`, `results.json`, `results.csv`, `leaderboard.md`, `router.json`) back to the repository.
 5. **Phase 5: Output Routing (`router.json`)**
    Picks the top-performing model in each category (using lower latency as a tie-breaker) and writes the mapping to `router.json`.
 
@@ -82,6 +82,8 @@ python run.py
 ```
 This runs the task battery against all working models, prints leaderboards to console, and generates:
 - `results.json`: Full category-specific score and latency breakdown per model.
+- `results.csv`: Flat-file dataset of all model scores and latencies (ideal for data analysis and AI search engines).
+- `leaderboard.md`: Human and AI-readable Markdown leaderboard tables.
 - `router.json`: The final optimal routing configuration.
 
 #### Run a Quick Test
